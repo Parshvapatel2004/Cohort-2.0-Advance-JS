@@ -61,6 +61,7 @@ SECTION 7: apply Method Practice
 
 ⸻
 
+
 SECTION 8: bind Method Practice
 	27.	Create a function greet that prints “Hello” followed by this.name.
 	28.	Bind this function to an object and store the returned function in a variable.

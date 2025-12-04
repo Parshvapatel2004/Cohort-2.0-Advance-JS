@@ -376,3 +376,125 @@
 
 // Each object created from a class has its own copy of properties.
 // So when we deposit money in the first bank account, only its balance changes. The second account remains unchanged because it is a completely separate object in memory.
+
+// SECTION 4: Understanding this (Very Important)
+// 	11.	Create an object named profile with a property username and a method printName that logs this.username.
+// 	12.	Call the method normally and observe the output.
+// 	13.	Store the method in a separate variable and call it.
+// Observe what happens to this and explain why.
+// 	14.	Modify the code so that this works correctly again.
+
+// ⸻
+
+// // Ans SECTION 4
+
+// // Step 11
+// const profile = {
+//   username: "Parshva",
+//   printName() {
+//     console.log(this.username);
+//   }
+// };
+
+// // Step 12
+// profile.printName();
+// // Output: Parshva
+
+// // Step 13
+// const show = profile.printName;
+// show();
+// // Output: undefined (this lost)
+
+// // Step 14 (Fix)
+// const showFixed = profile.printName.bind(profile);
+// showFixed();
+// // Output: Parshva
+
+// SECTION 5: Constructor Function and Prototype
+// 	15.	Create a constructor function called Vehicle that accepts type and wheels.
+// 	16.	Add a method describe inside the constructor and observe memory behavior when multiple objects are created.
+// 	17.	Move the same method to Vehicle.prototype and repeat the test.
+// 	18.	Explain why the prototype approach is preferred.
+
+// ⸻
+
+// // Ans sections 5
+// function Vehicle(type, wheels) {
+//   (this.type = type),
+//     (this.wheels = wheels)
+//     // (this.describe = function () {
+//     //   return "This vehicle is best";
+//     // });
+// }
+// Vehicle.prototype.describe = function(){
+//     return "This vehicle is best";
+// }
+// let v1 = new Vehicle("Bike", 2);
+// let v2 = new Vehicle("Car", 4);
+
+// Inside the constuctor common method is declare then every object contains a memory of that object if we declare the method in prototype then it will become the shared memory
+
+// Inside the constructor, every object gets its own copy of the method.
+// If we put the method in the prototype, all objects use shared memory, so it's faster and efficient.
+
+// // SECTION 6: call Method Practice
+// // 	19.	Create a function showBrand that prints this.brand.
+// // 	20.	Create two different objects with brand values.
+// // 	21.	Use call to execute showBrand for both objects.
+// // 	22.	Explain what problem call is solving here.
+
+// // ⸻
+
+// function showBrand() {
+//   console.log(this.brand);
+// }
+
+// let brand1 = {
+//   brand: "Apple",
+// };
+
+// let brand2 = {
+//   brand: "sumsang",
+// };
+
+// showBrand.call(brand1);
+// showBrand.call(brand2);
+
+// call() solves the problem of controlling which object the function should use as this.
+
+// // SECTION 7: apply Method Practice
+// // 	23.	Create a function introduce that accepts two arguments: city and role, and prints name, city, and role using this.name.
+// // 	24.	Create an object with a name property.
+// // 	25.	Use apply to call introduce using the object and an array of arguments.
+// // 	26.	Explain in simple words how apply differs from call.
+
+// // ⸻
+
+// function introduce(city, role) {
+//   console.log(this.name, city, role);
+// }
+
+// let obj = {
+//   name: "Parshva",
+// };
+
+// introduce.apply(obj, ["Visnagar", "WebDev"]);
+
+// // SECTION 8: bind Method Practice
+// // 	27.	Create a function greet that prints “Hello” followed by this.name.
+// // 	28.	Bind this function to an object and store the returned function in a variable.
+// // 	29.	Call the bound function later and observe the output.
+// // 	30.	Explain why bind is useful when functions are executed later or inside callbacks.
+
+// function greet() {
+//   console.log(this.name);
+// }
+
+// let obj = {
+//   name: "Hello",
+// };
+
+
+// let hey = greet.bind(obj)
+
+// hey()
